@@ -16,8 +16,7 @@ import { ProgressBar } from '../components/ui/ProgressBar';
 import { BadgeCollection } from '../components/achievements/BadgeCollection';
 import { SUBJECTS_META } from '../constants/subjects';
 import { SubjectCodes } from '../types';
-import { 
-  Award, 
+import { Award, 
   Clock, 
   Flame, 
   Target, 
@@ -27,13 +26,15 @@ import {
   Trophy,
   BarChart3
 } from 'lucide-react-native';
+import { PageHero } from '../components/ui/PageHero';
+import { PageTabBar } from '../components/ui/PageTabBar';
 
 export default function ProgressScreen() {
   const { width } = useWindowDimensions();
   const isDesktop = width >= 768;
   // Narrow mobile: 320–390px need tighter layouts
   const isNarrow = width < 400;
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const { state, analytics, achievements, activeTimer } = useApp();
 
   const [activeTab, setActiveTab] = useState<'analytics' | 'badges'>('analytics');
@@ -50,73 +51,34 @@ export default function ProgressScreen() {
 
   return (
     <ScrollView 
-      style={[styles.container, { backgroundColor: colors.background }]} 
+      style={[styles.container, { backgroundColor: isDark ? colors.background : '#F0F4FF' }]} 
       contentContainerStyle={styles.contentContainer} 
       showsVerticalScrollIndicator={false}
     >
-      {/* 1. Header */}
-      <View style={[styles.header, isNarrow && styles.headerNarrow]}>
-        <View style={styles.headerTitleGroup}>
-          <Text style={[styles.title, { color: colors.textPrimary }, isNarrow && styles.titleNarrow]}>
-            Progress & Milestones
-          </Text>
-          <Text style={[styles.subtitle, { color: colors.textMuted }]}>
-            Real performance analytics and study badges computed from verified completed study records
-          </Text>
-        </View>
+      <PageHero
+        title="Progress & Milestones"
+        subtitle="Real performance analytics and study badges computed from verified completed study records"
+      />
 
-        {/* Tab switch between Analytics and Badges */}
-        {/* On mobile: icons only. On desktop: icons + labels. */}
-        <View style={[styles.tabSwitch, { backgroundColor: colors.backgroundSoft, borderColor: colors.border }]}>
-          <TouchableOpacity
-            style={[
-              styles.tabBtn,
-              isDesktop && styles.tabBtnDesktop,
-              activeTab === 'analytics' && { backgroundColor: colors.card, borderColor: colors.cardBorder, borderWidth: 1 }
-            ]}
-            onPress={() => setActiveTab('analytics')}
-            activeOpacity={0.7}
-            accessibilityLabel="Analytics tab"
-            accessibilityRole="tab"
-            accessibilityState={{ selected: activeTab === 'analytics' }}
-          >
-            <BarChart3 size={16} color={activeTab === 'analytics' ? colors.accent : colors.textMuted} />
-            {isDesktop && (
-              <Text style={[
-                styles.tabBtnText,
-                { color: activeTab === 'analytics' ? colors.accent : colors.textSecondary },
-                activeTab === 'analytics' && styles.tabBtnTextActive
-              ]}>
-                Analytics
-              </Text>
-            )}
-          </TouchableOpacity>
+      {/* Tab switch: Analytics | Badges */}
+      <PageTabBar
+        tabs={[
+          {
+            key: 'analytics' as const,
+            label: 'Analytics',
+            icon: <BarChart3 size={14} color={activeTab === 'analytics' ? colors.accent : colors.textMuted} />,
+          },
+          {
+            key: 'badges' as const,
+            label: `Badges (${achievements.unlockedCount}/${achievements.totalCount})`,
+            icon: <Trophy size={14} color={activeTab === 'badges' ? colors.accent : colors.textMuted} />,
+          },
+        ]}
+        activeTab={activeTab}
+        onTabPress={setActiveTab}
+        scrollable={false}
+      />
 
-          <TouchableOpacity
-            style={[
-              styles.tabBtn,
-              isDesktop && styles.tabBtnDesktop,
-              activeTab === 'badges' && { backgroundColor: colors.card, borderColor: colors.cardBorder, borderWidth: 1 }
-            ]}
-            onPress={() => setActiveTab('badges')}
-            activeOpacity={0.7}
-            accessibilityLabel={`Badges tab — ${achievements.unlockedCount} of ${achievements.totalCount} unlocked`}
-            accessibilityRole="tab"
-            accessibilityState={{ selected: activeTab === 'badges' }}
-          >
-            <Trophy size={16} color={activeTab === 'badges' ? colors.accent : colors.textMuted} />
-            {isDesktop && (
-              <Text style={[
-                styles.tabBtnText,
-                { color: activeTab === 'badges' ? colors.accent : colors.textSecondary },
-                activeTab === 'badges' && styles.tabBtnTextActive
-              ]}>
-                Badges ({achievements.unlockedCount}/{achievements.totalCount})
-              </Text>
-            )}
-          </TouchableOpacity>
-        </View>
-      </View>
 
       {/* TAB 1: ANALYTICS & COVERAGE */}
       {activeTab === 'analytics' && (
@@ -473,14 +435,15 @@ const styles = StyleSheet.create({
   },
   metricHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 4,
-    gap: 4,
+    gap: 8,
+    width: '100%',
   },
   metricIcon: {
     flexShrink: 0,
-    marginTop: 1,
   },
   metricLabel: {
     fontSize: 12,
@@ -659,5 +622,30 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginTop: 8,
     lineHeight: 18,
+  },
+  // Hero illustration
+  heroIllust: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 72,
+    height: 72,
+  },
+  heroIllustBg: {
+    width: 68,
+    height: 68,
+    borderRadius: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  heroIllustDot: {
+    position: 'absolute',
+    bottom: 6,
+    right: 6,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
   },
 });

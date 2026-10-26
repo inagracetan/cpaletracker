@@ -1,0 +1,74 @@
+,SETUP · START HERE,,,
+,Make this tracker yours,,,
+,"Fill in the white boxes with orange text. Everything else (Daily Checklist, Calendar, Tonight card, badges) updates by itself. Set this up BEFORE you start ticking.",,,
+,,,,
+,1 · ABOUT YOU,,,
+,Full name,,,Shown in the motivational lines.
+,Nickname,Future CPA,,"Used in greetings like ""Hello, ___!"""
+,Taker type,First-timer,,First-timer or Repeater (used in the filing reminder).
+,Working while reviewing?,No,,"Yes = work tags appear (onsite, month-end close, busy season). No = they are switched off."
+,,,,
+,2 · EXAM & PLAN DATES,,,
+,Study start date,"Aug 24, 2026",,Your Day 1. The plan runs from here to exam day (up to 366 days).
+,CPALE Day 1,"May 23, 2027",,Tentative until PRC posts the schedule. The exam is 3 days in a row.
+,Day 1 subjects,MS & AUD,,
+,Day 2 subjects,TAX & RFBT,,
+,Day 3 subjects,FAR & AFAR,,Change the order if PRC changes it.
+,Finish all topics by,"Mar 31, 2027",,"Target date for covering every topic. Used for the ""days left"" counter."
+,1st preboard (from / to),"Feb 20, 2027","Feb 21, 2027",Days you take the exam. No topic is scheduled on these days. Leave blank if none.
+,Final preboard (from / to),"Apr 23, 2027","Apr 25, 2027",
+,Topic order,Recommended (Study Order tab),,"⚠ 99 topic(s) not in Study Order and 0 code(s) that don't match a topic. Fix Study Order, or switch to Automatic."
+,3 · YOUR WEEK,,,
+,Day,Work setup,Study plan,Work setup: Onsite / Work from home / Hybrid / Day off.  Study plan: 1 topic / 2 topics / 3 topics / Weekly review / Rest day.
+,Monday,Day off,1 topic,"Want to study more? Pick ""2 topics"" or ""3 topics"" on the days you have more time (e.g. weekends or days off). Your plan finishes earlier and the extra days become mastery days."
+,Tuesday,Day off,1 topic,
+,Wednesday,Day off,1 topic,
+,Thursday,Day off,1 topic,"Onsite days get a ""🏢 Onsite"" tag so you know to keep it light."
+,Friday,Day off,1 topic,
+,Saturday,Day off,1 topic,
+,Sunday,Day off,Weekly review,
+,,,,
+,4 · BUSY TIMES AT WORK (only if working),,,
+,Month-end close (day of month: from / to),,,e.g. 5 and 10 = the 5th to 10th of every month (weekdays only). Leave blank if you have no close.
+,Busy season (from / to),,,"e.g. tax season. Topics get a ""💼 Busy season · light study"" tag."
+,Peak week 1 (from / to),,,Your heaviest work weeks: the target drops to 25 minutes.
+,Peak week 2 (from / to),,,Leave blank if you don't need it.
+,,,,
+,5 · REST DAYS (no study),,,
+,,Date,Name (optional),"Holidays, birthdays, trips. Up to 10 dates."
+,Rest day 1,"Dec 24, 2026",Christmas Eve,
+,Rest day 2,"Dec 25, 2026",Christmas Day,
+,Rest day 3,"Dec 31, 2026",New Year's Eve,
+,Rest day 4,"Jan 1, 2027",New Year's Day,
+,Rest day 5,,,
+,Rest day 6,,,
+,Rest day 7,,,
+,Rest day 8,,,
+,Rest day 9,,,
+,Rest day 10,,,
+,,,,
+,6 · YOUR MATERIALS,,,
+,FAR,practice questions,,"What you practice with. Shows in the notes, e.g. ""Study + Valix Practical Accounting""."
+,AFAR,practice questions,,
+,MS,practice questions,,
+,TAX,practice questions,,
+,AUD,practice questions,,
+,RFBT,practice questions,,
+,Review day task,Weekly review + timed practice set (20 items in 50 min),,What you do on your weekly review day.
+,,,,
+,7 · KEY DATES & DEADLINES,,,
+,,Date,What,Note
+,Date 1,"Nov 16, 2026",PRC posts the official exam schedule,(est.) Update the dates on this Setup tab once it is out
+,Date 2,"Dec 15, 2026",Log in to (or create) your LERIS account,(target) Repeaters: reuse your old account and find your last Notice of Admission
+,Date 3,"Jan 8, 2027",Check the exam requirements on LERIS,(target) Requirements differ for first-timers and repeaters: check the PRC site
+,Date 4,"Jan 22, 2027",Get NBI clearance,(target) Must still be valid until after the exam
+,Date 5,"Feb 5, 2027",LERIS filing opens,(est.)
+,Date 6,"Feb 12, 2027",File on LERIS as First-timer + pay the exam fee,(target) File early to get your preferred venue
+,Date 7,"Apr 9, 2027",LERIS filing deadline,(est.) No late filing
+,Date 8,"May 9, 2027",Notice of Admission,(est.) Usually about 2 weeks before the exam
+,Date 9 (auto from CPALE Day 1),"May 23, 2027",CPALE Day 1 — MS & AUD,(est.)
+,Date 10 (auto from CPALE Day 1),"May 24, 2027",CPALE Day 2 — TAX & RFBT,(est.)
+,Date 11 (auto from CPALE Day 1),"May 25, 2027",CPALE Day 3 — FAR & AFAR,(est.)
+,Date 12,"Jun 1, 2027",Results release,(est.) Usually 3–6 working days after the exam
+,,,,
+,Legend:,edit me,Calculated: leave as is,

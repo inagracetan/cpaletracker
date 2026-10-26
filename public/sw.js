@@ -10,7 +10,7 @@
  *   only after an explicit user import (or in-app edits). Reset clears those stores.
  */
 
-const CACHE_VERSION = 'cpale-tracker-v6';
+const CACHE_VERSION = 'cpale-tracker-v9';
 const SHELL_URLS = [
   '/',
   '/index.html',

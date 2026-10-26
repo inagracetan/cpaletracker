@@ -71,10 +71,10 @@ export class NotificationService {
             reg.showNotification(title, {
               body,
               tag: tag || 'cpale_notification',
-              icon: '/cpabg.png',
+              icon: '/cpadark.png',
             });
           }).catch(() => {
-            new Notification(title, { body, tag, icon: '/cpabg.png' });
+            new Notification(title, { body, tag, icon: '/cpadark.png' });
           });
           return true;
         }
@@ -82,7 +82,7 @@ export class NotificationService {
         new Notification(title, {
           body,
           tag,
-          icon: '/cpabg.png',
+          icon: '/cpadark.png',
         });
         return true;
       } catch (e) {

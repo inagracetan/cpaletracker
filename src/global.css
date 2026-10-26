@@ -7,3 +7,47 @@
   --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
   --font-serif: Georgia, 'Times New Roman', serif;
 }
+
+/* Global web layout & text visibility defaults for CPALE Tracker */
+html,
+body,
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prefer wrapping over clipping for long titles, nicknames, and search results */
+p,
+span,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+td,
+th,
+button,
+a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+input,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}

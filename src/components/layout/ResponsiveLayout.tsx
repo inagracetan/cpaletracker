@@ -32,10 +32,12 @@ import {
   ClipboardCheck,
   X,
   GripVertical,
-  Menu,
-  User
+  MoreHorizontal,
+  User,
+  ChevronRight,
 } from 'lucide-react-native';
 import { AchievementToast } from '../achievements/AchievementToast';
+import { selectHeaderLogo } from '../../utils/logoContrast';
 
 export interface ResponsiveLayoutProps {
   children: React.ReactNode;
@@ -136,6 +138,8 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
 
   const isMoreActive = isMoreOpen || navItems.slice(4).some(it => pathname === it.path || (it.path !== '/' && pathname.startsWith(it.path)));
 
+  const logoSrc = selectHeaderLogo({ isDark, isDesktop });
+
   const formatTimerTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -147,13 +151,14 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
       <AchievementToast />
       <View style={[styles.rootContainer, { backgroundColor: colors.background }, isDesktop ? styles.rowContainer : styles.colContainer]}>
         
-        {/* Desktop Sidebar */}
+        {/* ───── Desktop Sidebar ───── */}
         {isDesktop && (
           <View style={[styles.sidebar, { backgroundColor: colors.card, borderRightColor: colors.border }]}>
-            {/* Header / Branding - Clean, no customization icon */}
+            {/* Branding */}
             <View style={styles.brandContainer}>
               <Image
-                source={{ uri: isDark ? '/cpadark.png' : '/cpabg.png' }}
+                key={`desktop-logo-${logoSrc}`}
+                source={{ uri: logoSrc }}
                 style={styles.logoBadgeImage}
                 accessibilityLabel="CPALE Tracker logo"
               />
@@ -165,7 +170,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
               </View>
             </View>
 
-            {/* Navigation Links with Direct Drag & Drop */}
+            {/* Navigation Links with Drag & Drop */}
             <ScrollView style={styles.sidebarNav} showsVerticalScrollIndicator={false}>
               {navItems.map((item, index) => {
                 const isActive = pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
@@ -180,7 +185,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                     )}
                     <TouchableOpacity
                       style={[
-                        styles.sidebarLink, 
+                        styles.sidebarLink,
                         isActive && { backgroundColor: colors.accentLight },
                         isDragging && { opacity: 0.5, borderWidth: 1.5, borderColor: colors.accent, backgroundColor: colors.accentLight },
                       ]}
@@ -226,17 +231,24 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                       } as any : {})}
                       activeOpacity={0.7}
                     >
+                      {/* Active indicator stripe */}
+                      {isActive && (
+                        <View style={[styles.sidebarActiveStripe, { backgroundColor: colors.accent }]} />
+                      )}
                       <IconComponent
-                        size={20}
-                        color={isActive ? colors.accent : colors.textSecondary}
+                        size={18}
+                        color={isActive ? colors.accent : colors.textMuted}
                       />
                       <Text style={[
-                        styles.sidebarLinkText, 
+                        styles.sidebarLinkText,
                         { color: isActive ? colors.accent : colors.textSecondary },
                         isActive && styles.sidebarLinkTextActive
                       ]}>
                         {item.name}
                       </Text>
+                      {isActive && (
+                        <ChevronRight size={14} color={colors.accent} style={{ marginLeft: 'auto' }} />
+                      )}
                     </TouchableOpacity>
                   </View>
                 );
@@ -245,9 +257,9 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
 
             {/* Sync Status Badge in Sidebar Footer */}
             <View style={[styles.sidebarFooter, { borderTopColor: colors.borderLight }]}>
-              <View style={[styles.syncPill, { backgroundColor: colors.backgroundSubtle }]}>
+              <View style={[styles.syncPill, { backgroundColor: colors.accentLight, borderColor: colors.border, borderWidth: 1 }]}>
                 <View style={[
-                  styles.syncDot, 
+                  styles.syncDot,
                   { backgroundColor: state.syncMetadata.syncStatus === 'Synced' ? colors.success : colors.warning }
                 ]} />
                 <Text style={[styles.syncText, { color: colors.textSecondary }]}>
@@ -258,32 +270,38 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
           </View>
         )}
 
-        {/* Main Content Area */}
+        {/* ───── Main Content Area ───── */}
         <View style={[styles.mainContent, { backgroundColor: colors.background }]}>
-          {/* Top header on mobile: Clean, no duplicate Settings and no customization icon */}
+          {/* Mobile Header — Gradient */}
           {!isDesktop && (
-            <View style={[styles.mobileHeader, { backgroundColor: colors.card, borderBottomColor: colors.border }]}>
+            <View style={styles.mobileHeader}>
+              {/* Blue gradient background */}
+              <View style={[styles.mobileHeaderGradient, { backgroundColor: colors.primary }]} />
               {/* Brand on left */}
               <View style={styles.mobileBrandGroup}>
                 <Image
-                  source={{ uri: isDark ? '/cpadark.png' : '/cpabg.png' }}
+                  key={`mobile-logo-${logoSrc}`}
+                  source={{ uri: logoSrc }}
                   style={styles.mobileLogoBadgeImage}
                   accessibilityLabel="CPALE Tracker logo"
                 />
-                <Text style={[styles.mobileBrandTitle, { color: colors.textPrimary }]}>CPALE Tracker</Text>
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={styles.mobileBrandTitle}>CPALE Tracker</Text>
+                  <Text style={styles.mobileBrandSubtitle}>Plan · Practice · Pass</Text>
+                </View>
               </View>
 
-              {/* Profile / Nickname — wraps fully; never clipped by fixed max widths */}
+              {/* Profile Pill */}
               <View
                 style={styles.mobileProfileContainer}
                 accessibilityRole="header"
                 accessibilityLabel={`Logged in user: ${state.userProfile.nickname || 'Future CPA'}`}
               >
-                <View style={[styles.mobileProfilePill, { backgroundColor: colors.backgroundSoft, borderColor: colors.cardBorder }]}>
-                  <View style={[styles.mobileAvatarCircle, { backgroundColor: colors.accentLight }]}>
-                    <User size={13} color={colors.accent} />
+                <View style={styles.mobileProfilePill}>
+                  <View style={styles.mobileAvatarCircle}>
+                    <User size={12} color="#FFFFFF" />
                   </View>
-                  <Text style={[styles.mobileGreetingText, { color: colors.textPrimary }]}>
+                  <Text style={styles.mobileGreetingText} numberOfLines={1}>
                     {state.userProfile.nickname || 'Future CPA'}
                   </Text>
                 </View>
@@ -296,39 +314,39 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
             {children}
           </View>
 
-          {/* Floating Study Timer Banner if active */}
+          {/* Floating Study Timer Banner */}
           {(activeTimer.isRunning || activeTimer.elapsedSeconds > 0) && (
-            <View style={[styles.floatingTimer, { backgroundColor: isDark ? colors.cardElevated : '#0F172A' }]}>
+            <View style={[styles.floatingTimer, { backgroundColor: isDark ? colors.cardElevated : '#1E3A8A' }]}>
               <View style={styles.timerInfo}>
-                <Clock size={18} color={colors.accent} style={{ flexShrink: 0 }} />
+                <Clock size={18} color="#60A5FA" style={{ flexShrink: 0 }} />
                 <View style={{ marginLeft: 8, flex: 1, minWidth: 0, marginRight: 8 }}>
                   <Text style={styles.timerTitle}>
                     {activeTimer.topicTitle || 'Review Session'}
                   </Text>
-                  <Text style={[styles.timerTime, { color: colors.accent }]}>{formatTimerTime(activeTimer.elapsedSeconds)}</Text>
+                  <Text style={[styles.timerTime, { color: '#60A5FA' }]}>{formatTimerTime(activeTimer.elapsedSeconds)}</Text>
                 </View>
               </View>
               <View style={styles.timerControls}>
                 {activeTimer.isRunning ? (
-                  <TouchableOpacity style={[styles.timerBtn, { backgroundColor: colors.accent }]} onPress={pauseTimer}>
-                    <Pause size={18} color="#FFF" />
+                  <TouchableOpacity style={[styles.timerBtn, { backgroundColor: '#3B82F6' }]} onPress={pauseTimer}>
+                    <Pause size={16} color="#FFF" />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity style={[styles.timerBtn, { backgroundColor: colors.accent }]} onPress={resumeTimer}>
-                    <Play size={18} color="#FFF" />
+                  <TouchableOpacity style={[styles.timerBtn, { backgroundColor: '#3B82F6' }]} onPress={resumeTimer}>
+                    <Play size={16} color="#FFF" />
                   </TouchableOpacity>
                 )}
-                <TouchableOpacity 
-                  style={[styles.timerBtn, { backgroundColor: colors.success, marginLeft: 8 }]} 
+                <TouchableOpacity
+                  style={[styles.timerBtn, { backgroundColor: colors.success, marginLeft: 8 }]}
                   onPress={() => stopTimer(activeTimer.topicId)}
                 >
-                  <Square size={16} color="#FFF" />
+                  <Square size={14} color="#FFF" />
                 </TouchableOpacity>
               </View>
             </View>
           )}
 
-          {/* Mobile Bottom Navigation Bar: Top 4 destinations + More */}
+          {/* ───── Mobile Bottom Navigation Bar ───── */}
           {!isDesktop && (
             <View style={[styles.bottomNav, { backgroundColor: colors.card, borderTopColor: colors.border }]}>
               {navItems.slice(0, 4).map((item, index) => {
@@ -384,6 +402,8 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                     } as any : {})}
                     activeOpacity={0.7}
                   >
+                    {/* Active dot indicator */}
+                    <View style={[styles.bottomNavDot, isActive && { backgroundColor: colors.accent }]} />
                     <IconComponent
                       size={22}
                       color={isActive ? colors.accent : colors.textMuted}
@@ -394,7 +414,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                         { color: isActive ? colors.accent : colors.textMuted },
                         isActive && styles.bottomNavLabelActive
                       ]}
-                      numberOfLines={2}
+                      numberOfLines={1}
                     >
                       {item.shortName || item.name}
                     </Text>
@@ -402,14 +422,15 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                 );
               })}
 
-              {/* 5th Tab: More (Opens full menu of remaining destinations without duplicating Settings) */}
+              {/* 5th Tab: More */}
               <TouchableOpacity
                 style={styles.bottomNavItem}
                 onPress={() => setIsMoreOpen(true)}
                 activeOpacity={0.7}
                 accessibilityLabel="More Navigation Sections"
               >
-                <Menu
+                <View style={[styles.bottomNavDot, isMoreActive && { backgroundColor: colors.accent }]} />
+                <MoreHorizontal
                   size={22}
                   color={isMoreActive ? colors.accent : colors.textMuted}
                 />
@@ -427,17 +448,20 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
 
       </View>
 
-      {/* Mobile "More" Sections Drawer / Sheet - Instant, No Animation */}
+      {/* ───── Mobile "More" Bottom Sheet ───── */}
       <Modal visible={isMoreOpen} transparent animationType="none" onRequestClose={() => setIsMoreOpen(false)}>
-        <TouchableOpacity 
-          style={styles.moreOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={styles.moreOverlay}
+          activeOpacity={1}
           onPress={() => setIsMoreOpen(false)}
         >
-          <View 
+          <View
             style={[styles.moreSheet, { backgroundColor: colors.card, borderColor: colors.cardBorder }]}
             onStartShouldSetResponder={() => true}
           >
+            {/* Sheet handle */}
+            <View style={[styles.sheetHandle, { backgroundColor: colors.border }]} />
+            
             <View style={[styles.moreHeader, { borderBottomColor: colors.borderLight }]}>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.moreSheetTitle, { color: colors.textPrimary }]}>More Sections</Text>
@@ -445,8 +469,8 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                   All available sections in CPALE Tracker
                 </Text>
               </View>
-              <TouchableOpacity 
-                onPress={() => setIsMoreOpen(false)} 
+              <TouchableOpacity
+                onPress={() => setIsMoreOpen(false)}
                 style={[styles.moreCloseBtn, { backgroundColor: colors.backgroundSoft }]}
                 accessibilityLabel="Close Navigation Menu"
               >
@@ -468,8 +492,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                       key={item.path}
                       style={[
                         styles.moreSheetItem,
-                        { backgroundColor: isActive ? colors.accentLight : colors.backgroundSoft, borderColor: colors.border },
-                        isActive && { borderColor: colors.accent },
+                        { backgroundColor: isActive ? colors.accentLight : colors.backgroundSoft, borderColor: isActive ? colors.accent : colors.border },
                         isDragging && { opacity: 0.5, borderColor: colors.accent, borderWidth: 1.5 },
                         isDropTarget && { borderTopWidth: 3, borderTopColor: colors.accent },
                       ]}
@@ -515,20 +538,21 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) 
                       } as any : {})}
                       activeOpacity={0.7}
                     >
-                      <View style={[styles.moreItemIcon, { backgroundColor: isActive ? colors.accent : colors.surfaceElevated }]}>
-                        <IconComponent size={18} color={isActive ? '#FFFFFF' : colors.textPrimary} />
+                      <View style={[
+                        styles.moreItemIcon,
+                        { backgroundColor: isActive ? colors.accent : colors.accentLight }
+                      ]}>
+                        <IconComponent size={18} color={isActive ? '#FFFFFF' : colors.accent} />
                       </View>
                       <View style={{ flex: 1, marginLeft: 12, minWidth: 0 }}>
                         <Text style={[styles.moreItemTitle, { color: isActive ? colors.accent : colors.textPrimary }, isActive && { fontWeight: '700' }]}>
                           {item.name}
                         </Text>
                         <Text style={[styles.moreItemSub, { color: colors.textMuted }]}>
-                          {item.path}
+                          Tap to navigate
                         </Text>
                       </View>
-                      <View style={[styles.dragHintGrip, { flexShrink: 0 }]}>
-                        <GripVertical size={16} color={colors.textLight} />
-                      </View>
+                      <ChevronRight size={16} color={colors.textMuted} />
                     </TouchableOpacity>
                   );
                 })}
@@ -555,8 +579,10 @@ const styles = StyleSheet.create({
   colContainer: {
     flexDirection: 'column',
   },
+
+  // ───── Sidebar (Desktop) ─────
   sidebar: {
-    width: 250,
+    width: 256,
     borderRightWidth: 1,
     paddingVertical: AcademicTheme.spacing.lg,
     paddingHorizontal: AcademicTheme.spacing.md,
@@ -567,41 +593,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 8,
     marginBottom: AcademicTheme.spacing.xl,
-  },
-  logoBadge: {
-    width: 38,
-    height: 38,
-    borderRadius: AcademicTheme.borderRadius.md,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingBottom: AcademicTheme.spacing.xl,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(226,232,240,0.7)',
   },
   logoBadgeImage: {
-    width: 52,
-    height: 52,
+    width: 48,
+    height: 48,
     resizeMode: 'contain',
     backgroundColor: 'transparent',
-  },
-  logoBadgeText: {
-    fontWeight: AcademicTheme.typography.weights.bold,
-    fontSize: 14,
-    letterSpacing: 1,
+    flexShrink: 0,
   },
   brandTitle: {
-    fontSize: AcademicTheme.typography.sizes.lg,
+    fontSize: AcademicTheme.typography.sizes.md,
     fontWeight: AcademicTheme.typography.weights.bold,
+    letterSpacing: 0.2,
   },
   brandSubtitle: {
-    fontSize: AcademicTheme.typography.sizes.sm,
+    fontSize: AcademicTheme.typography.sizes.xs,
     marginTop: 2,
-    lineHeight: 20,
+    lineHeight: 18,
     flexShrink: 1,
-  },
-  reorderNavBtn: {
-    width: 28,
-    height: 28,
-    borderRadius: 6,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   sidebarNav: {
     flex: 1,
@@ -610,13 +622,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     borderRadius: AcademicTheme.borderRadius.md,
-    marginBottom: 4,
+    marginBottom: 2,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  sidebarActiveStripe: {
+    position: 'absolute',
+    left: 0,
+    top: 6,
+    bottom: 6,
+    width: 3,
+    borderRadius: 2,
   },
   sidebarLinkText: {
-    marginLeft: 12,
-    fontSize: AcademicTheme.typography.sizes.md,
+    marginLeft: 10,
+    fontSize: AcademicTheme.typography.sizes.sm,
     fontWeight: AcademicTheme.typography.weights.medium,
     flex: 1,
     minWidth: 0,
@@ -628,25 +650,29 @@ const styles = StyleSheet.create({
   sidebarFooter: {
     paddingTop: AcademicTheme.spacing.md,
     borderTopWidth: 1,
+    marginTop: 8,
   },
   syncPill: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     borderRadius: AcademicTheme.borderRadius.full,
+    alignSelf: 'flex-start',
   },
   syncDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
     marginRight: 6,
   },
   syncText: {
-    fontSize: AcademicTheme.typography.sizes.sm,
+    fontSize: AcademicTheme.typography.sizes.xs,
     fontWeight: AcademicTheme.typography.weights.medium,
     flexShrink: 1,
   },
+
+  // ───── Main Content ─────
   mainContent: {
     flex: 1,
     flexDirection: 'column',
@@ -660,92 +686,95 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     minWidth: 0,
   },
+
+  // ───── Mobile Header ─────
   mobileHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: AcademicTheme.spacing.md,
+    paddingHorizontal: 14,
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    minHeight: 52,
+    minHeight: 58,
     width: '100%',
     gap: 8,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  mobileHeaderGradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    // We set backgroundColor dynamically; CSS gradient applied via style prop on web
   },
   mobileBrandGroup: {
     flexDirection: 'row',
     alignItems: 'center',
     flexShrink: 1,
-    marginRight: 4,
+    gap: 8,
     minWidth: 0,
-  },
-  mobileLogoBadge: {
-    width: 28,
-    height: 28,
-    borderRadius: 6,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 8,
   },
   mobileLogoBadgeImage: {
-    width: 44,
-    height: 44,
-    marginRight: 8,
+    width: 38,
+    height: 38,
     resizeMode: 'contain',
     backgroundColor: 'transparent',
-  },
-  mobileLogoBadgeText: {
-    fontSize: 12,
-    fontWeight: AcademicTheme.typography.weights.bold,
-    letterSpacing: 0.5,
+    flexShrink: 0,
   },
   mobileBrandTitle: {
-    fontSize: 17,
-    fontWeight: AcademicTheme.typography.weights.bold,
+    fontSize: 16,
+    fontWeight: '700' as const,
+    color: '#FFFFFF',
     flexShrink: 1,
+    lineHeight: 20,
+  },
+  mobileBrandSubtitle: {
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.75)',
+    fontWeight: '500' as const,
+    lineHeight: 15,
   },
   mobileProfileContainer: {
-    flexShrink: 1,
-    flexGrow: 0,
-    minWidth: 0,
-    maxWidth: '48%',
+    flexShrink: 0,
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   mobileProfilePill: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 16,
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    gap: 5,
+    backgroundColor: 'rgba(255,255,255,0.18)',
     borderWidth: 1,
-    gap: 6,
-    maxWidth: '100%',
+    borderColor: 'rgba(255,255,255,0.3)',
   },
   mobileAvatarCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
-    marginTop: 1,
+    backgroundColor: 'rgba(255,255,255,0.25)',
   },
   mobileGreetingText: {
-    fontSize: AcademicTheme.typography.sizes.sm,
-    fontWeight: AcademicTheme.typography.weights.semibold,
+    fontSize: 12,
+    fontWeight: '600' as const,
+    color: '#FFFFFF',
     flexShrink: 1,
-    lineHeight: 18,
+    maxWidth: 100,
   },
-  mobileHeaderBtn: {
-    padding: 6,
-    borderRadius: AcademicTheme.borderRadius.sm,
-  },
+
+  // ───── Bottom Navigation ─────
   bottomNav: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
     borderTopWidth: 1,
-    paddingTop: 8,
+    paddingTop: 6,
     paddingBottom: Platform.OS === 'ios' ? 20 : 8,
     width: '100%',
   },
@@ -755,23 +784,33 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     paddingHorizontal: 2,
+    paddingTop: 2,
+  },
+  bottomNavDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    marginBottom: 4,
+    backgroundColor: 'transparent',
   },
   bottomNavLabel: {
-    fontSize: 12,
-    marginTop: 2,
+    fontSize: 11,
+    marginTop: 3,
     fontWeight: AcademicTheme.typography.weights.medium,
     textAlign: 'center',
-    lineHeight: 15,
+    lineHeight: 14,
     width: '100%',
   },
   bottomNavLabelActive: {
     fontWeight: AcademicTheme.typography.weights.bold,
   },
+
+  // ───── Floating Timer ─────
   floatingTimer: {
     position: 'absolute',
-    bottom: 64,
-    left: 16,
-    right: 16,
+    bottom: 68,
+    left: 12,
+    right: 12,
     borderRadius: AcademicTheme.borderRadius.lg,
     padding: 12,
     flexDirection: 'row',
@@ -787,7 +826,7 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
   timerTitle: {
-    color: '#FFF',
+    color: '#E2E8F0',
     fontSize: AcademicTheme.typography.sizes.sm,
     fontWeight: AcademicTheme.typography.weights.medium,
     lineHeight: 20,
@@ -809,24 +848,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  // ───── Drop Indicator ─────
   dropIndicatorLine: {
-    height: 3,
-    borderRadius: 1.5,
+    height: 2,
+    borderRadius: 1,
     marginVertical: 2,
     width: '100%',
   },
+
+  // ───── More Sheet ─────
   moreOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.55)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'flex-end',
   },
   moreSheet: {
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderWidth: 1,
     borderBottomWidth: 0,
     padding: 16,
+    paddingTop: 12,
     maxHeight: '80%',
+  },
+  sheetHandle: {
+    width: 36,
+    height: 4,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginBottom: 12,
   },
   moreHeader: {
     flexDirection: 'row',
@@ -834,16 +885,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 12,
     borderBottomWidth: 1,
-    marginBottom: 8,
+    marginBottom: 4,
   },
   moreSheetTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
+    letterSpacing: 0.2,
   },
   moreSheetSub: {
-    fontSize: AcademicTheme.typography.sizes.sm,
+    fontSize: AcademicTheme.typography.sizes.xs,
     marginTop: 2,
-    lineHeight: 20,
+    lineHeight: 18,
   },
   moreCloseBtn: {
     width: 30,
@@ -855,17 +907,18 @@ const styles = StyleSheet.create({
   moreSheetItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 11,
     paddingHorizontal: 12,
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 1,
   },
   moreItemIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 8,
+    width: 36,
+    height: 36,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 0,
   },
   moreItemTitle: {
     fontSize: 15,
@@ -873,12 +926,8 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   moreItemSub: {
-    fontSize: AcademicTheme.typography.sizes.sm,
+    fontSize: 12,
     marginTop: 1,
     flexShrink: 1,
   },
-  dragHintGrip: {
-    padding: 4,
-  },
 });
-

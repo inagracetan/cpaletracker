@@ -1,0 +1,345 @@
+[
+  {
+    "order": 1,
+    "code": "MS-01",
+    "subject": "MS",
+    "title": "Basic Considerations in MAS",
+    "part": "1/1"
+  },
+  {
+    "order": 2,
+    "code": "TAX-01",
+    "subject": "TAX",
+    "title": "General Principles",
+    "part": "1/1"
+  },
+  {
+    "order": 3,
+    "code": "AUD-01",
+    "subject": "AUD",
+    "title": "Practice and Regulation",
+    "part": "1/1"
+  },
+  {
+    "order": 4,
+    "code": "RFBT-01",
+    "subject": "RFBT",
+    "title": "Obligation",
+    "part": "1/1"
+  },
+  {
+    "order": 5,
+    "code": "AFAR-01",
+    "subject": "AFAR",
+    "title": "Partnership Accounting",
+    "part": "1/1"
+  },
+  {
+    "order": 6,
+    "code": "FAR-01",
+    "subject": "FAR",
+    "title": "Introduction to Accountancy Profession",
+    "part": "1/1"
+  },
+  {
+    "order": 7,
+    "code": "MS-02",
+    "subject": "MS",
+    "title": "Variable and Absorption Costing",
+    "part": "1/1"
+  },
+  {
+    "order": 8,
+    "code": "TAX-02",
+    "subject": "TAX",
+    "title": "Taxes, Laws, and Administration",
+    "part": "2026-01-01 00:00:00"
+  },
+  {
+    "order": 9,
+    "code": "AUD-02",
+    "subject": "AUD",
+    "title": "Code of Ethics",
+    "part": "2026-01-01 00:00:00"
+  },
+  {
+    "order": 10,
+    "code": "RFBT-02",
+    "subject": "RFBT",
+    "title": "Contracts",
+    "part": "1/1"
+  },
+  {
+    "order": 11,
+    "code": "AFAR-02",
+    "subject": "AFAR",
+    "title": "Corporate Liquidation",
+    "part": "1/1"
+  },
+  {
+    "order": 12,
+    "code": "FAR-02",
+    "subject": "FAR",
+    "title": "Preface to PFRS",
+    "part": "1/1"
+  },
+  {
+    "order": 13,
+    "code": "MS-03",
+    "subject": "MS",
+    "title": "CVP and BEP Analysis",
+    "part": "1/1"
+  },
+  {
+    "order": 14,
+    "code": "TAX-03",
+    "subject": "TAX",
+    "title": "Introduction to Income Taxation",
+    "part": "1/2"
+  },
+  {
+    "order": 15,
+    "code": "AUD-03",
+    "subject": "AUD",
+    "title": "Fundamentals of Assurance Services",
+    "part": "2/2"
+  },
+  {
+    "order": 16,
+    "code": "RFBT-03",
+    "subject": "RFBT",
+    "title": "Sales",
+    "part": "1/1"
+  },
+  {
+    "order": 17,
+    "code": "AFAR-03",
+    "subject": "AFAR",
+    "title": "Revenue Recognition",
+    "part": "1/1"
+  },
+  {
+    "order": 18,
+    "code": "FAR-03",
+    "subject": "FAR",
+    "title": "Conceptual Framework",
+    "part": "1/1"
+  },
+  {
+    "order": 19,
+    "code": "AFAR-03",
+    "subject": "AFAR",
+    "title": "Revenue Recognition",
+    "part": "1/1"
+  },
+  {
+    "order": 20,
+    "code": "MS-04",
+    "subject": "MS",
+    "title": "Financial Statement Analysis",
+    "part": "1/1"
+  },
+  {
+    "order": 21,
+    "code": "TAX-04",
+    "subject": "TAX",
+    "title": "Final Income Taxation",
+    "part": "1/1"
+  },
+  {
+    "order": 22,
+    "code": "AUD-04",
+    "subject": "AUD",
+    "title": "Introduction to Auditing",
+    "part": "1/1"
+  },
+  {
+    "order": 23,
+    "code": "RFBT-04",
+    "subject": "RFBT",
+    "title": "Credit Transactions",
+    "part": "1/1"
+  },
+  {
+    "order": 24,
+    "code": "FAR-04",
+    "subject": "FAR",
+    "title": "Accounting Process",
+    "part": "1/1"
+  },
+  {
+    "order": 25,
+    "code": "MS-05",
+    "subject": "MS",
+    "title": "Budgeting",
+    "part": "1/1"
+  },
+  {
+    "order": 26,
+    "code": "TAX-05",
+    "subject": "TAX",
+    "title": "Capital Gains Tax",
+    "part": "1/1"
+  },
+  {
+    "order": 27,
+    "code": "AUD-05",
+    "subject": "AUD",
+    "title": "Preliminary Engagement Activities",
+    "part": "1/1"
+  },
+  {
+    "order": 28,
+    "code": "RFBT-05",
+    "subject": "RFBT",
+    "title": "Anti-Bouncing Checks Law",
+    "part": "1/1"
+  },
+  {
+    "order": 29,
+    "code": "FAR-05",
+    "subject": "FAR",
+    "title": "Accounting Changes and Correction of Error",
+    "part": "1/1"
+  },
+  {
+    "order": 30,
+    "code": "MS-06",
+    "subject": "MS",
+    "title": "Standard Cost and Variances",
+    "part": "1/1"
+  },
+  {
+    "order": 31,
+    "code": "TAX-06",
+    "subject": "TAX",
+    "title": "Regular Income Tax - GI",
+    "part": "1/1"
+  },
+  {
+    "order": 32,
+    "code": "TAX-07",
+    "subject": "TAX",
+    "title": "Compensation Income",
+    "part": "1/1"
+  },
+  {
+    "order": 33,
+    "code": "AUD-06",
+    "subject": "AUD",
+    "title": "Audit Planning",
+    "part": "1/1"
+  },
+  {
+    "order": 34,
+    "code": "AUD-07",
+    "subject": "AUD",
+    "title": "Study and Evaluation of Internal Control",
+    "part": "1/1"
+  },
+  {
+    "order": 35,
+    "code": "AUD-08",
+    "subject": "AUD",
+    "title": "Auditing in an IT Environment",
+    "part": "1/1"
+  },
+  {
+    "order": 36,
+    "code": "MS-07",
+    "subject": "MS",
+    "title": "Performance Evaluation",
+    "part": "1/1"
+  },
+  {
+    "order": 37,
+    "code": "FAR-06",
+    "subject": "FAR",
+    "title": "Single Entry and Cash to Accrual Basis",
+    "part": "1/1"
+  },
+  {
+    "order": 38,
+    "code": "FAR-07",
+    "subject": "FAR",
+    "title": "Cash and Cash Equivalents",
+    "part": "1/1"
+  },
+  {
+    "order": 39,
+    "code": "FAR-08",
+    "subject": "FAR",
+    "title": "Audit of Cash",
+    "part": "1/1"
+  },
+  {
+    "order": 40,
+    "code": "FAR-09",
+    "subject": "FAR",
+    "title": "Receivables",
+    "part": "1/1"
+  },
+  {
+    "order": 41,
+    "code": "TAX-08",
+    "subject": "TAX",
+    "title": "Fringe Benefits",
+    "part": "1/1"
+  },
+  {
+    "order": 42,
+    "code": "MS-08",
+    "subject": "MS",
+    "title": "Pricing Decisions",
+    "part": "1/1"
+  },
+  {
+    "order": 43,
+    "code": "TAX-09",
+    "subject": "TAX",
+    "title": "Dealings in Properties",
+    "part": "1/1"
+  },
+  {
+    "order": 44,
+    "code": "RFBT-06",
+    "subject": "RFBT",
+    "title": "Consumer Protection Act & Lemon Law",
+    "part": "1/1"
+  },
+  {
+    "order": 45,
+    "code": "RFBT-07",
+    "subject": "RFBT",
+    "title": "Financial Rehabilitation and Insolvency Act",
+    "part": "1/1"
+  },
+  {
+    "order": 46,
+    "code": "RFBT-08",
+    "subject": "RFBT",
+    "title": "Philippine Competition Act",
+    "part": "1/1"
+  },
+  {
+    "order": 47,
+    "code": "AUD-09",
+    "subject": "AUD",
+    "title": "Transaction Cycles",
+    "part": "1/1"
+  },
+  {
+    "order": 48,
+    "code": "FAR-10",
+    "subject": "FAR",
+    "title": "Audit of Receivables",
+    "part": "1/1"
+  },
+  {
+    "order": 49,
+    "code": "AFAR-04",
+    "subject": "AFAR",
+    "title": "HOBA",
+    "part": "1/1"
+  }
+]

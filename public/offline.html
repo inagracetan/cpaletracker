@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3B4480" />
+    <title>CPALE Tracker — Offline</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #F7F8FC;
+        --card: #FFFFFF;
+        --text: #1A1F36;
+        --muted: #535B7C;
+        --accent: #3B4480;
+        --border: #E2E5F0;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111426;
+          --card: #202642;
+          --text: #F4F5FC;
+          --muted: #8E97B8;
+          --accent: #7E8CE0;
+          --border: #363D60;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      .card {
+        width: 100%;
+        max-width: 440px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px 24px;
+        text-align: center;
+      }
+      .badge {
+        width: 72px;
+        height: 72px;
+        object-fit: contain;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        background: #fff;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 10px;
+        line-height: 1.3;
+      }
+      p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+      }
+      a {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img class="badge" src="/cpabg.png" alt="CPALE Tracker" width="72" height="72" />
+      <h1>You're offline</h1>
+      <p>
+        CPALE Tracker could not load this page from the network. If you already opened the app online once, return to the home screen — your study data remains saved on this device.
+      </p>
+      <p>
+        Tip: open the app while online so the offline shell can finish caching.
+      </p>
+      <a href="/">Open CPALE Tracker</a>
+    </main>
+  </body>
+</html>

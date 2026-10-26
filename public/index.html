@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>%WEB_TITLE%</title>
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3B4480" />
+    <meta name="application-name" content="CPALE Tracker" />
+    <meta name="description" content="Philippine CPA Licensure Examination study tracker with offline support." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="CPALE Tracker" />
+    <link rel="apple-touch-icon" href="/cpabg.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/cpabg.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/cpabg.png" />
+    <link rel="icon" type="image/png" href="/cpabg.png" />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: #F7F8FC;
+      }
+      body {
+        overflow: hidden;
+      }
+      #root {
+        display: flex;
+        height: 100%;
+        flex: 1;
+        min-width: 0;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Required mount node for Expo / react-native-web -->
+    <div id="root"></div>
+    <noscript>You need to enable JavaScript to run CPALE Tracker.</noscript>
+
+    <!--
+      Safe SW updates: force skipWaiting + one reload on controllerchange so
+      cached index.html cannot keep pointing at deleted hashed JS bundles.
+    -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        var refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (refreshing) return;
+          refreshing = true;
+          window.location.reload();
+        });
+
+        window.addEventListener('load', function () {
+          navigator.serviceWorker
+            .register('/sw.js', { scope: '/' })
+            .then(function (registration) {
+              if (registration.waiting) {
+                registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+              }
+              registration.addEventListener('updatefound', function () {
+                var installing = registration.installing;
+                if (!installing) return;
+                installing.addEventListener('statechange', function () {
+                  if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+                    installing.postMessage({ type: 'SKIP_WAITING' });
+                  }
+                });
+              });
+            })
+            .catch(function (error) {
+              console.warn('[CPALE] Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

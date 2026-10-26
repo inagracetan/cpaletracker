@@ -576,11 +576,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoBadgeImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
+    width: 52,
+    height: 52,
     resizeMode: 'contain',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   logoBadgeText: {
     fontWeight: AcademicTheme.typography.weights.bold,
@@ -688,12 +687,11 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   mobileLogoBadgeImage: {
-    width: 30,
-    height: 30,
-    borderRadius: 6,
+    width: 44,
+    height: 44,
     marginRight: 8,
     resizeMode: 'contain',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   mobileLogoBadgeText: {
     fontSize: 12,
